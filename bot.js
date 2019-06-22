@@ -7,28 +7,21 @@ client.on('ready', () => {
 
 
 
-client.on('message', message => {
-  if (message.content.startsWith("#avatar")) {
-if(!message.channel.guild) return;
-      var mentionned = message.mentions.users.first();
-  var client;
-    if(mentionned){
-        var client = mentionned; } else {
-        var client = message.author;
-    }
-      const embed = new Discord.RichEmbed()
-                         .addField('Requested by:', "<@" + message.author.id + ">")
-      .setColor(000000)
-      .setImage(`${client.avatarURL}`)
-    message.channel.sendEmbed(embed);
-  }
-});
+client.on("message", message => {
+    if (message.content.startsWith("$obc")) {
+                 if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+  let args = message.content.split(" ").slice(1);
+  var argresult = args.join(' ');
+  message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
+  m.send(`${argresult}\n ${m}`);
+  })
+  message.channel.send(`\`${message.guild.members.filter( m => m.presence.status !== 'all').size}\`:mailbox:  عدد المستلمين `);
+  message.delete();
+  };
+  });
 
 
-
-
-
-const devs = ["502799582045011970"];
+const devs = ["535979538551930891"];
 const adminprefix = ["#"];
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
